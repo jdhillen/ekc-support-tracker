@@ -3,7 +3,8 @@
 A small web app for routing entrepreneur support requests to regional partner organizations.
 I built it as the EnterpriseKC technical interview project, with a one-hour budget.
 
-**Live URL:** https://ekc-support-tracker.vercel.app (API docs at /api/docs)
+**Live URL:** https://ekc-support-tracker.vercel.app (API docs at /api/docs)  
+**Source:** https://github.com/jdhillen/ekc-support-tracker
 
 ## The problem
 
@@ -95,7 +96,7 @@ npm run dev                       # Vite on :5173, which proxies /api to :8000
 1. **Supabase:** create a project. In the SQL editor, run `db/schema.sql`, then `db/seed.sql`.
    Copy the **Transaction pooler** connection string from **Connect**.
 2. **GitHub:** push this repo.
-3. **Vercel:** import the repo (the Vite preset is detected automatically). Add the environment
+3. **Vercel:** import the repo (or connect it under Project → Settings → Git) (the Vite preset is detected automatically). Add the environment
    variable `DATABASE_URL`, then deploy. Vercel builds the Vue app and deploys `api/index.py` as a
    Python function.
 4. Check `https://<app>.vercel.app/api/health`, which should return `{"status":"ok"}`.
