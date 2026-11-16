@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
 import { CATEGORIES, PRIORITIES, STATUSES } from '../constants'
+import { AlertCircle, Loader2, Save, Trash2, X } from 'lucide-vue-next'
 
 // onSave / onDelete are async functions from the parent, so the form can await them and show errors.
 const props = defineProps({ request: Object, partners: Array, onSave: Function, onDelete: Function })
@@ -101,13 +102,21 @@ function confirmDelete() {
         </label>
       </div>
 
-      <p v-if="error" class="alert" role="alert">{{ error }}</p>
+      <p v-if="error" class="alert" role="alert"><AlertCircle class="icon" :size="18" aria-hidden="true" />{{ error }}</p>
 
       <div class="actions">
-        <button v-if="isEdit" type="button" class="btn danger" :disabled="saving" @click="confirmDelete">Delete</button>
+        <button v-if="isEdit" type="button" class="btn danger" :disabled="saving" @click="confirmDelete">
+          <Trash2 class="icon" :size="16" aria-hidden="true" />Delete
+        </button>
         <span class="spacer" />
-        <button type="button" class="btn" :disabled="saving" @click="dialog.close()">Cancel</button>
-        <button type="submit" class="btn primary" :disabled="saving">{{ saving ? 'Saving…' : 'Save' }}</button>
+        <button type="button" class="btn" :disabled="saving" @click="dialog.close()">
+          <X class="icon" :size="16" aria-hidden="true" />Cancel
+        </button>
+        <button type="submit" class="btn primary" :disabled="saving">
+          <Loader2 v-if="saving" class="icon spin" :size="16" aria-hidden="true" />
+          <Save v-else class="icon" :size="16" aria-hidden="true" />
+          {{ saving ? 'Saving…' : 'Save' }}
+        </button>
       </div>
     </form>
   </dialog>

@@ -1,8 +1,11 @@
 <script setup>
 import { STATUSES } from '../constants'
+import { CheckCircle2, Clock, Forward, Inbox } from 'lucide-vue-next'
 
 defineProps({ stats: Object, active: String })
 const emit = defineEmits(['select'])
+
+const icons = { new: Inbox, referred: Forward, in_progress: Clock, resolved: CheckCircle2 }
 </script>
 
 <template>
@@ -15,8 +18,11 @@ const emit = defineEmits(['select'])
       :aria-pressed="active === s.value"
       @click="emit('select', active === s.value ? '' : s.value)"
     >
-      <span class="stat-count">{{ stats[s.value] ?? 0 }}</span>
-      <span class="stat-label">{{ s.label }}</span>
+      <span class="stat-icon"><component :is="icons[s.value]" :size="22" aria-hidden="true" /></span>
+      <span class="stat-text">
+        <span class="stat-count">{{ stats[s.value] ?? 0 }}</span>
+        <span class="stat-label">{{ s.label }}</span>
+      </span>
     </button>
   </div>
 </template>

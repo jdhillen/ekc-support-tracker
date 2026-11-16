@@ -1,5 +1,6 @@
 <script setup>
 import { CATEGORIES, PRIORITIES, STATUSES, labelFor } from '../constants'
+import { Pencil } from 'lucide-vue-next'
 
 defineProps({ requests: Array })
 const emit = defineEmits(['open', 'status'])
@@ -26,7 +27,7 @@ const formatDate = (iso) =>
       <tbody>
         <tr v-for="r in requests" :key="r.id">
           <td>
-            <button class="link" @click="emit('open', r)">{{ r.title }}</button>
+            <button class="link" @click="emit('open', r)">{{ r.title }}<Pencil class="icon" :size="14" aria-hidden="true" /></button>
             <div class="muted small">{{ r.business_name }}</div>
           </td>
           <td>{{ r.requester_name }}</td>

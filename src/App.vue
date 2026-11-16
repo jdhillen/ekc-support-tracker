@@ -5,6 +5,7 @@ import { STATUSES } from './constants'
 import StatsBar from './components/StatsBar.vue'
 import RequestTable from './components/RequestTable.vue'
 import RequestForm from './components/RequestForm.vue'
+import { AlertCircle, Filter, Plus, Search } from 'lucide-vue-next'
 
 const requests = ref([])
 const partners = ref([])
@@ -78,26 +79,34 @@ async function quickStatus(request, status) {
       <h1>Founder Support Tracker</h1>
       <p class="subtitle">Log entrepreneur requests and route them to the right regional partner.</p>
     </div>
-    <button class="btn primary" @click="editing = {}">+ New request</button>
+    <button class="btn primary" @click="editing = {}">
+      <Plus class="icon" :size="18" aria-hidden="true" />New request
+    </button>
   </header>
 
   <main>
     <StatsBar :stats="stats" :active="filters.status" @select="filters.status = $event" />
 
     <div class="toolbar">
-      <input
-        v-model="filters.q"
-        type="search"
-        placeholder="Search title, founder, or business…"
-        aria-label="Search requests"
-      />
-      <select v-model="filters.status" aria-label="Filter by status">
-        <option value="">All statuses</option>
-        <option v-for="s in STATUSES" :key="s.value" :value="s.value">{{ s.label }}</option>
-      </select>
+      <div class="field-icon search">
+        <Search class="icon" :size="18" aria-hidden="true" />
+        <input
+          v-model="filters.q"
+          type="search"
+          placeholder="Search title, founder, or business…"
+          aria-label="Search requests"
+        />
+      </div>
+      <div class="field-icon filter">
+        <Filter class="icon" :size="16" aria-hidden="true" />
+        <select v-model="filters.status" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option v-for="s in STATUSES" :key="s.value" :value="s.value">{{ s.label }}</option>
+        </select>
+      </div>
     </div>
 
-    <p v-if="error" class="alert" role="alert">{{ error }}</p>
+    <p v-if="error" class="alert" role="alert"><AlertCircle class="icon" :size="18" aria-hidden="true" />{{ error }}</p>
     <p v-if="loading" class="muted">Loading…</p>
     <RequestTable
       v-else
