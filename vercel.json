@@ -1,0 +1,8 @@
+{
+  "rewrites": [{ "source": "/api/(.*)", "destination": "/api/index" }],
+  "functions": {
+    "api/index.py": {
+      "excludeFiles": "{node_modules,src,dist,public,db,.venv}/**"
+    }
+  }
+}
